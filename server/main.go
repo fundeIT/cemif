@@ -13,6 +13,7 @@ import (
     "github.com/gin-gonic/autotls"
     "github.com/gin-contrib/sessions"
     "github.com/gin-contrib/sessions/cookie"
+    _ "golang.org/x/crypto/acme/autocert"
 )
 
 func Logger() gin.HandlerFunc {
@@ -59,7 +60,12 @@ func Run() {
         static.LocalFile("../notebooks", false)))
     router.StaticFile("/favicon.ico", "../res/favicon.ico")
     if runmode == "release" {
-    	log.Fatal(autotls.Run(router, hostname))
+	// m := autocert.Manager{
+	//	Prompt: autocert.AcceptTOS,
+	//	HostPolicy: autocert.HostWhitelist("fiscal.funde.org"),
+	//}
+    	// log.Fatal(autotls.RunWithManager(router, &m))
+	log.Fatal(autotls.Run(router, hostname))
     } else {
         router.Run()
     }

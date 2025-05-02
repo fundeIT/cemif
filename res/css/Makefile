@@ -1,4 +1,4 @@
-SASS = ../node_modules/sass/sass.js
+SASS = npx sass
 
 all:
 	${SASS} style.scss style.css
